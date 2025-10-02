@@ -1,11 +1,10 @@
 ---
-title: "STAT515_Mid-Project"
+title: "Welcome"
 ---
 
-This is a Quarto website.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+### Veronica Wood's STAT 515 Midterm Redesign Project
 
-```{r}
-1 + 1
-```
+For this project we will be looking at two visualization from Secretary of the U.S. Department of Health and Human Services.
+
+

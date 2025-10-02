@@ -9,6 +9,9 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+      - redsign1.qmd
+      - redsign2.qmd
+      - code.qmd
 
 format:
   html:
