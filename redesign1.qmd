@@ -1,5 +1,5 @@
 ---
-title: "redesign1"
+title: "Redesign 1"
 editor: visual
 ---
 

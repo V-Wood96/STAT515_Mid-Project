@@ -1,4 +1,4 @@
 ---
-title: "code"
+title: "Code"
 editor: visual
 ---

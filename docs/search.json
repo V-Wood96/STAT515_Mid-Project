@@ -2,22 +2,36 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "STAT515_Mid-Project",
+    "title": "Welcome",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "Veronica Wood’s STAT 515 Midterm Redesign Project\nFor this project we will be looking at two visualization from"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "About Me",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "Veronica Wood\nHello! Am currently pursuing a Master’s in Data Analytics Engineering at George Mason University."
   },
   {
     "objectID": "redesign1.html",
     "href": "redesign1.html",
-    "title": "redesign1",
+    "title": "Redesign 1",
     "section": "",
     "text": "For the first re-design we will be looking at The MAHA Report"
+  },
+  {
+    "objectID": "index.html#stat-515-mid-term-project",
+    "href": "index.html#stat-515-mid-term-project",
+    "title": "STAT515_Mid-Project",
+    "section": "STAT 515 Mid-term Project",
+    "text": "STAT 515 Mid-term Project"
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "STAT515_Mid-Project",
+    "section": "",
+    "text": "Welcome to Veronica Wood’s STAT 515 Mid-term Project"
   }
 ]

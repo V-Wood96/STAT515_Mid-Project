@@ -3,21 +3,24 @@ project:
   output-dir: docs
 
 website:
-  title: "STAT515_Mid-Project"
+  title: "Midterm Redesign Project"
   navbar:
     left:
       - href: index.qmd
         text: Home
       - about.qmd
-      - redsign1.qmd
-      - redsign2.qmd
+      - redesign1.qmd
+      - redesign2.qmd
       - code.qmd
 
 format:
   html:
-    theme:
-      - cosmo
-      - brand
+    theme: minty
+    #mainfont: arial
+    fontsize: 1 rem
+    #fountcolor: "0013d5"
+    #linkcolor: "#ff33f0"
+    #monofont: courier new
     css: styles.css
     toc: true
 

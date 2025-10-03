@@ -1,4 +1,16 @@
 ---
-title: "about"
+title: "About Me"
+about:
+  template: jolla
+  image: images_headshot.png
+  image-shape: round
+  image-width: 15em
+  links:
+  - icon: linkedin
+    text: LinkedIn
+    href: https://www.linkedin.com/in/veronica-a-wood
 ---
 
+#### Veronica Wood
+
+Hello! Am currently pursuing a Master’s in Data Analytics Engineering at George Mason University. 
