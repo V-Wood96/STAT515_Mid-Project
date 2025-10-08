@@ -9,6 +9,12 @@ about:
   - icon: linkedin
     text: LinkedIn
     href: https://www.linkedin.com/in/veronica-a-wood
+  - text: Email
+    icon: envelope
+    href: mailto:vdunbar2@gmu.edu 
+  - text: GitHub
+    icon: github
+    href: https://github.com/V-Wood96/STAT515_Mid-Project.git
 ---
 
 #### Veronica Wood

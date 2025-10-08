@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Midterm Redesign Project"
+  title: "Redesign Project"
   navbar:
     left:
       - href: index.qmd

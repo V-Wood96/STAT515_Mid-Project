@@ -1,10 +1,12 @@
 ---
 title: "Welcome"
+subtitle: "Veronica Wood's STAT 515 Midterm Redesign Project"
 ---
 
 
-### Veronica Wood's STAT 515 Midterm Redesign Project
+### About My Redesign Project
 
 For this project we will be looking at two visualization from Secretary of the U.S. Department of Health and Human Services.
+
 
 

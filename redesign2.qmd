@@ -1,4 +1,92 @@
 ---
-title: "Redesign 2"
+title: "Visualization Two"
+page-template: solana
+
+about:
+  template: solana
+  links:
+    - icon: web
+      text: Original Visualization
+      href: https://www.strongnation.org/articles/414-map-many-young-americans-are-ineligible-to-serve-in-the-military 
+    - icon: youtube
+      text: YouTube
+      href: https://www.youtube.com/watch?v=hceM0-RuPwo&list=PLkrJrLs7xfbXcEKhTCKRSr2VXH4yiBeXo&index=8
+
+format:
+  html:
+    theme: minty
+    page-layout: full
+    toc: false
 ---
 
+### Original Visualization 
+
+::: {#fig-military-eligibility .figure}
+![Original Visualization](large.jpg){fig-align="center" width="90%" fig-cap="Original visualization from strong nation"}
+
+
+### Redesign 
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 10
+#| fig-height: 6
+#| fig-dpi: 300
+#| out-width: 100%
+#| label: ineligible-map
+#| fig-cap: ""
+
+library(ggplot2)
+library(usmap)
+library(plotly)
+library(dplyr)
+library(stringr)   
+library(tibble)
+
+usa_tbl <- ggplot2::map_data("state") %>% as_tibble()
+
+ineligible_df <- tibble(
+  state = c("District of Columbia","Mississippi","Louisiana","Alabama","Arkansas",
+            "New Mexico","Georgia","New Hampshire","Oklahoma","South Carolina",
+            "Tennessee","Texas","Arizona","Delaware","Florida","Kentucky",
+            "North Carolina","Rhode Island","West Virginia","Alaska","California",
+            "Idaho","Indiana","Michigan","Missouri","Montana","Nebraska","Nevada",
+            "New York","North Dakota","Ohio","Oregon","Pennsylvania","South Dakota",
+            "Utah","Wisconsin","Colorado","Illinois","Iowa","Kansas","Maryland",
+            "Vermont","Virginia","Washington","Wyoming","Connecticut","Massachusetts",
+            "Minnesota","New Jersey","Maine","Hawaii"),
+  Percent_Ineligible = c(
+    78,76,75,74,74,74,73,73,73,73,73,73,72,72,72,72,72,72,72,71,71,71,71,71,71,
+    71,71,71,71,71,71,71,71,71,71,71,70,70,70,70,70,70,70,70,70,69,69,69,69,68,62)
+) %>%
+  mutate(state = tolower(state)) %>%
+  filter(state != "district of columbia")
+
+ineligible_df_map <- usa_tbl %>%
+  left_join(ineligible_df, by = c("region" = "state"))
+
+p <- ggplot(ineligible_df_map, aes(long, lat, group = group)) +
+  geom_polygon(
+    aes(
+      fill = Percent_Ineligible,
+      text = paste0(str_to_title(region), "<br>", Percent_Ineligible, "% ineligible")
+    ),
+    color = "white", linewidth = 0.25
+  ) +
+  coord_map("albers", lat0 = 39, lat1 = 45) + 
+  scale_fill_gradient2(
+    low = "#FFF3B0", mid = "#E67E22", high = "#4B0000",
+    midpoint = 70, limits = c(62, 78),
+    name = "Percent Ineligible",
+    labels = function(x) paste0(x, "%")) +
+  labs(
+    title = "Percent of American Youth (age 17–24) Ineligible for Military Service") +
+  theme_void(base_size = 6) +
+  theme(
+  plot.title = element_text(size = 10, face = "bold", color = "#4B0000"))
+
+ggplotly(p, tooltip = "text", height = 400)
+
+```

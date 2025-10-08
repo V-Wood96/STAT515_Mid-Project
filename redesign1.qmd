@@ -1,6 +1,178 @@
 ---
-title: "Redesign 1"
-editor: visual
+title: "Visualization One"
+page-template: solana
+
+about:
+  template: solana
+  links:
+    - icon: web
+      text: Original Visualization
+      href: https://www.whitehouse.gov/wp-content/uploads/2025/05/MAHA-Report-The-White-House.pdf
+    - icon: youtube
+      text: YouTube
+      href: https://www.youtube.com/watch?v=hceM0-RuPwo&list=PLkrJrLs7xfbXcEKhTCKRSr2VXH4yiBeXo&index=8
+
+format:
+  html:
+    theme: minty
+    page-layout: full
 ---
 
-For the first re-design we will be looking at The MAHA Report 
+
+### Original Visualization 
+
+
+::: {#fig-military-eligibility .figure}
+![Original Visualization](Redesign_one.png){fig-align="center" width="75%" fig-cap="Original visualization from the White House report"}
+:::
+
+### Redesign One
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 9
+#| fig-height: 5.5
+#| fig-dpi: 300
+#| out-width: 100%
+#| fig-align: center
+
+library(ggplot2)
+library(dplyr)
+library(forcats)
+
+Eligibility <- data.frame(
+  Category = c("Meets All Criteria","Multiple Disqualifiers","Medical/Physical",
+               "Overweight","Mental Health","Drug Abuse",
+               "Conduct","Dependents","Aptitude"),
+  Percent  = c(23, 44, 7, 11, 4, 8, 1, 1, 1)
+)
+
+lev_order <- c("Meets All Criteria","Dependents","Conduct","Aptitude",
+               "Mental Health","Medical/Physical","Drug Abuse",
+               "Overweight","Multiple Disqualifiers")
+
+Eligibility <- Eligibility %>%
+  mutate(
+    Category = factor(Category, levels = lev_order),
+    Group = case_when(
+      Category == "Meets All Criteria" ~ "Eligible",
+      TRUE ~ "Ineligible"))
+
+ggplot(Eligibility, aes(x = Category, y = Percent, fill = Group)) +
+  geom_col(width = 0.8) +
+  coord_flip() +
+  geom_text(aes(label = paste0(Percent, "%")), hjust = -0.1, size = 4) +
+  annotate("segment", x = 1.5, xend = 1.5, y = 0, yend = 50,
+           linewidth = 0.7, color = "#4B0000") +
+  labs(
+    title = "Military Eligibility Among U.S. Youth (2020)",
+    x = "Eligibility Status Reasoning",
+    y = "Percentage of Youth (ages 17-24)",
+    caption = "Source: JAMRS, 2020 Youth Report [2]",
+    fill = "Eligibility Status"
+  ) +
+  scale_y_continuous(limits = c(0, 50), expand = expansion(mult = c(0, 0))) +
+  scale_fill_manual(
+    values = c(
+      "Ineligible" = "#9a031e",
+      "Eligible" = "#2CA58D"
+    ),
+    breaks = c("Ineligible", "Eligible") 
+  ) +
+  theme_minimal(base_size = 8) +
+  theme(
+    plot.title = element_text(size = 18, face = "bold", color = "#4B0000", hjust = 0.3),
+    axis.title.x = element_text(size = 14, color = "#4B0000", margin = margin(t = 10)),
+    axis.title.y = element_text(size = 14, color = "#4B0000", margin = margin(r = 10)),
+    axis.text.x = element_text(size = 10, color = "#4B0000"),
+    axis.text.y = element_text(size = 10, color = "#4B0000"),
+    panel.grid.major.y = element_blank(),
+    plot.caption = element_text(size = 10, hjust = 0, color = "#4B0000", margin = margin(t = 8, l = 2)),
+    plot.margin = margin(10, 20, 10, 20),
+    legend.position = "right",
+    legend.direction = "vertical",
+    legend.title = element_text(size = 10, face = "bold", color = "#4B0000"),
+    legend.text = element_text(size = 10, color = "#4B0000")
+  )
+
+```
+
+
+### Redesign Two 
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 9
+#| fig-height: 5.5
+#| fig-dpi: 300
+#| out-width: 100%
+#| fig-align: center
+
+library(scales)
+
+Eligibility_2 <- data.frame(
+  Category = c("Meets All Criteria","Multiple Disqualifiers","Medical/Physical",
+               "Overweight","Mental Health","Drug Abuse","*Other (≤1%)"),
+  Percent  = c(23, 44, 7, 11, 4, 8, 3)
+)
+
+total_population <- 32878937 
+
+Eligibility_2 <- Eligibility_2 %>%
+  mutate(
+    Count = round(Percent/100 * total_population),
+    Label = paste0(number(Count, scale = 1e-6, accuracy = 0.1), "M")  
+  )
+
+elig_filt <- Eligibility_2 %>% filter(Category != "Meets All Criteria")
+
+elig_filt <- elig_filt %>%
+  mutate(Category = fct_reorder(Category, Count)) 
+
+ggplot(elig_filt, aes(x = Category, y = Count, fill = Count)) +
+  geom_col(width = 0.7, color = "black") +
+  coord_flip(clip = "off") +
+  scale_y_continuous(
+    labels = label_number(scale = 1e-6, suffix = "M"),
+    expand = expansion(mult = c(0, 0.2))
+  ) +
+  scale_fill_gradient(low = "#f2e9e4", high = "#9a031e", guide = "none") +
+  geom_text(
+    aes(label = Label),
+    hjust = -0.15,
+    size = 3.5,
+    color = "#4B0000",
+    fontface = "italic"
+  ) +
+  labs(
+    title = "Reasons for Military Ineligibility Among U.S. Youth",
+    subtitle = "Based on 32,878,937 total population (excludes those who meet all criteria)",
+    x = "Reasoning for Ineligibility",
+    y = "Youth ages 17–24 (Millions)",
+    caption = "*Other (≤1%) includes: Conduct, Dependents, Aptitude"
+  ) +
+  theme_minimal(base_size = 9) +
+  theme(
+    plot.title = element_text(size = 18, face = "bold", color = "#4B0000", hjust = 0.5),
+    plot.subtitle = element_text(size = 11, color = "#4B0000", hjust = 0.5, margin = margin(b = 8)),
+    axis.title.x = element_text(size = 13, color = "#4B0000", margin = margin(t = 8)),
+    axis.title.y = element_text(size = 13, color = "#4B0000", margin = margin(r = 10)),
+    axis.text.x  = element_text(size = 10, color = "#4B0000"),
+    axis.text.y  = element_text(size = 10, color = "#4B0000"),
+    panel.grid.major.y = element_blank(),
+    plot.caption = element_text(size = 10, hjust = 0, color = "#4B0000", margin = margin(t = 8, l = 2)),
+    plot.margin = margin(10, 35, 10, 20),
+    legend.position = "none"
+  )
+```
+
+
+### References 
+
+
+
+
