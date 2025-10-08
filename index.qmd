@@ -1,12 +1,39 @@
 ---
 title: "Welcome"
-subtitle: "Veronica Wood's STAT 515 Midterm Redesign Project"
+subtitle: "Group 6 - STAT 515 Midterm Redesign Project"
+page-template: solana
+
+about:
+  template: solana
+  links:
+    - icon: Original web
+      text: Sources One
+      href: https://www.whitehouse.gov/wp-content/uploads/2025/05/MAHA-Report-The-White-House.pdf
+    - icon: web
+      text: Sources Two
+      href: https://www.strongnation.org/articles/414-map-many-young-americans-are-ineligible-to-serve-in-the-military 
+    - icon: youtube
+      text: YouTube
+      href: https://www.youtube.com/watch?v=hceM0-RuPwo&list=PLkrJrLs7xfbXcEKhTCKRSr2VXH4yiBeXo&index=8
+
 ---
 
 
-### About My Redesign Project
+### Introduction on Redesign Project
 
-For this project we will be looking at two visualization from Secretary of the U.S. Department of Health and Human Services.
+This project examines two visualizations representing the percentage of American youth ages 17-24 who are ineligible for military service. The initial visualization analyzed was obtained from the White House MAHA (Make America Healthy Again) Report [1]. The first original graph, while a simple pie chart, it contains several limitations in clarity, readability, and analytical values. Consequently, I sought to redesign and enhance the visualization to improve its interpretability and adherence the effective data visualization principle. 
+
+To locate the underlying data, I reviewed the report’s cited sources which references the Joint Advertising, Market Research & Studies (JAMRS) program. However, many of the reference links were inactive or no longer accessible. One reference led to StrongNation.org [2] where I identified a related visualization that served as the basis for a secondary redesign within this project.
+
+Because the original dataset could not be retrieved, I manually reconstructed the data using numerical values extracted directly from the published graphics. The recreated dataset was then analyzed and visualization redesigned. This process enabled the development of new, data-driven visualizations that more effectively convey the underlying patterns and improve upon the design and interpretive shortcomings of the original charts.
 
 
+### Presentation
 
+### Sources Information
+
+[1] JAMRS, 2020 Youth Report (as cited in The White House – MAHA Report, May 22, 2025).
+https://www.whitehouse.gov/wp-content/uploads/2025/05/MAHA-Report-The-White-House.pdf
+<br>
+
+[2]	Department of Defense (2017), as cited by Mission: Readiness – Council for a Strong America. Retrieved from https://www.strongnation.org/articles/414-map-many-young-americans-are-ineligible-to-serve-in-the-military 
