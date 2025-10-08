@@ -1,7 +1,6 @@
 ---
 title: "Visualization Two"
 page-template: solana
-
 about:
   template: solana
   links:
@@ -16,14 +15,38 @@ format:
   html:
     theme: minty
     page-layout: full
-    toc: false
 ---
 
-### Original Visualization 
+<br>
+
+## Original Visualization 
 
 ::: {#fig-military-eligibility .figure}
 ![Original Visualization](large.jpg){fig-align="center" width="90%" fig-cap="Original visualization from strong nation"}
 
+:::
+
+
+### Analysis on Original Graph 
+
+The original visualization was designed to communicate the percentage of young Americans ages 17 to 24 who are ineligible to join the military across the United States. The intent was to raise awareness of the magnitude of ineligibility and highlight the top preventable causes in a geographic visualization.
+
+While the design is eye-catching the use of a hexagonal tile map and color grouping makes the visualization appealing but analytically weak. The view can quickly grasp that most stats have high ineligibility rate (around 70%) but comparing individual states or seeing subtle differences can be difficult. 
+
+Note regarding text design elements:
+Nearly half of the visualization functions as a text legend displaying exact percentages, organized from highest to lowest. This layout may be misleading, as viewers naturally read from left to right. Potentially assuming the values increase in that direction. Since most states fall into the lower percentage ranges, this arrangement can create the false impression at a quick glance that a majority of states are in the higher-percentage category.
+
+
+#### Weaknesses of Original Graph
+
+-	Color Binning: States are grouped into broad color ranges (e.g., 62-70%). This hides the exact values and diminishes interpretive accuracy. 
+
+-	Chart Type: The hex map layout distorts geography states and can mislead when trying to interpret reginal clusters. 
+
+-	Legend: Text-heavy design elements. The image provides little specific data unless the viewer reads small text annotations below. 
+
+-	Scale: Small differences like 70% to 71% appear as sharp visual jumps. 
+<br><br>
 
 ### Redesign 
 
@@ -90,3 +113,40 @@ p <- ggplot(ineligible_df_map, aes(long, lat, group = group)) +
 ggplotly(p, tooltip = "text", height = 400)
 
 ```
+
+### Redesign Purpose 
+
+The redesign aims to provide an accurate and interactive visualization of the percentage of youth ineligibility for military service by state. 
+
+This redesign makes reginal patterns immediately clear. The Sothern states like MS, LA, AL, and GA shows the highest ineligibility rates. While the Midwestern and Northeastern states show slightly lower rates. This map provides precise data points rather than broad categories. This encourages accurate interpretation and reginal analysis.
+
+#### Improvements
+
+-	Adopted a true geographic projection.
+
+-	Applied a continuous color scale for better distinction.
+
+-	Added hover text for each state to deliver specific values without clutter.
+
+-	Simplified layout to center focus on the data itself.
+
+-	Made the chart interactive. Allowing users to explore details.
+<br><br>
+
+## Conclusion 
+
+This redesign transforms a static infographic map into exploration and analysis.  It strengthens accuracy and user engagement while maintaining the message of the original report. 
+
+Future enhancements Could include overlays for the major contributing factors like obesity and drug use. Allowing policymakers to visualize where the issue is most severe.
+<br><br>
+
+
+## References 
+
+[2] Council for a Strong America, “Map: Many Young Americans Are Ineligible to Serve in the Military,” StrongNation.org, 2024. [Online]. Available: https://www.strongnation.org/articles/414-map-many-young-americans-are-ineligible-to-serve-in-the-military. [Accessed: Oct. 8, 2025].
+
+
+
+
+
+

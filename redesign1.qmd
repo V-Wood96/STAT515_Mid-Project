@@ -18,15 +18,35 @@ format:
     page-layout: full
 ---
 
+<br>
 
-### Original Visualization 
-
+## Original Graph 
 
 ::: {#fig-military-eligibility .figure}
 ![Original Visualization](Redesign_one.png){fig-align="center" width="75%" fig-cap="Original visualization from the White House report"}
 :::
 
-### Redesign One
+### Analysis on Original Graph 
+
+The original pie chart below was designed to communicate the distribution of reasons American youth (ages 17 - 24) are ineligible for military service. The purpose was to compare the proportion of eligible versus ineligible youth. The breakdown was further divided by specific reasons for ineligibility disqualification.
+
+While the intention of the chart is clear the design significantly limits comprehension. The image quality is low, the color choices are inconsistent, and the layout does not effectively communicate proportions or comparisons.  
+
+#### Weaknesses of Original Graph
+
+
+-	Image Quality: The original chart was pixelated and difficult to read, like the one above. Context like the not on Drug Abuse DQ is illegible.
+
+-	Formatting: The inconsistent font size and colors create visual clutter. 
+
+-	Color Use: Each wedge of the pie chart hac a unique color but with no clear meaning. Adjacent segments use similar and different hues, making them hard to distinguish or understand.
+
+-	Chart Type: A pie chart is not ideal for comparing many categories. Especially with several categories represent 1%.
+
+-	Visual communication: The design fails to guide the eye toward the most important information. Nearly half of youths are disqualified for multiple reasons and that is in gray easily missed.
+<br><br>
+
+## Redesign One
 
 ```{r}
 #| echo: false
@@ -70,7 +90,7 @@ ggplot(Eligibility, aes(x = Category, y = Percent, fill = Group)) +
     title = "Military Eligibility Among U.S. Youth (2020)",
     x = "Eligibility Status Reasoning",
     y = "Percentage of Youth (ages 17-24)",
-    caption = "Source: JAMRS, 2020 Youth Report [2]",
+    caption = "Source: JAMRS, 2020 Youth Report",
     fill = "Eligibility Status"
   ) +
   scale_y_continuous(limits = c(0, 50), expand = expansion(mult = c(0, 0))) +
@@ -100,7 +120,24 @@ ggplot(Eligibility, aes(x = Category, y = Percent, fill = Group)) +
 ```
 
 
-### Redesign Two 
+### Redesign One Purpose 
+
+To recreate and improve this visualization I sourced and cleaned the 2020 JAMRS data manually based on the original chart values. Resign emphasized proportional understanding of the data. This redesign aimed to create a direct comparison between eligibility categories while retaining all key original data points. 
+
+This redesign makes it clear that nearly half of youth (44%) are ineligible due to multiple disqualifying factors. It also highlights that overweight and drug use are key single-factor disqualifies. The redesign graph conveys the same information from the original but is visually cleaner and focused. 
+
+#### Improvements
+
+-	Switched from a pie chart to a horizontal bar chart to improve comparison. 
+
+-	Grouped the data logically by placing “Meet All Criteria” at bottom.
+
+-	Used color coding to separate “eligible” and “Ineligible” for immediate visual contrast. 
+
+-	Renamed labels for clarity and added clear title, axis labels, and percentages. 
+<br><br>
+
+## Redesign Two 
 
 ```{r}
 #| echo: false
@@ -170,9 +207,36 @@ ggplot(elig_filt, aes(x = Category, y = Count, fill = Count)) +
   )
 ```
 
+### Redesign Two Purpose 
 
-### References 
+The second redesign builds upon the first but focuses solely on ineligible youth. To allow for proportional scaling I updated by population count given in the original graph of 32,878,937 youth.
 
+While this graph changed the original focus from comparing the proportion of eligible verses ineligible youth, I felt that this design better communicated the magnitude of disqualification by type. It shows that “Multiple Disqualifiers” vastly outweighs other categories. The simplified focus helps clarify both scale and impact. 
 
+#### Improvements
+
+-	Converted percentages to actual population count (in millions). 
+
+-	Simplified the chart to focus only on disqualifying factors. 
+
+-	Grouped 1% categories into an “Other (≤1%)” segment with a clear footnote. 
+
+-	Refined color gradient to represent severity.
+<br><br>
+
+## Conclusion 
+
+Across the redesigns clarity and interpretability improved dramatically. The first redesign emphasized the eligible/ ineligible split. The second redesign focused on scale and significance withing the ineligible population.  
+
+For future improvements integrating a time-series component (e.g., trends from 2010-2020) could further strengthen public understanding of military eligibility trends.  
+<br><br>
+
+## References 
+
+[1] The White House, The MAHA Report, Washington, D.C., May 2025. [Online] pg. 9 Available: https://www.whitehouse.gov/wp-content/uploads/2025/05/MAHA-Report-The-White-House.pdf. [Accessed: Oct. 8, 2025].
+
+[3] JAMRS, 2020 Youth Report (as cited in The White House – MAHA Report, May 22, 2025).
+https://www.whitehouse.gov/wp-content/uploads/2025/05/MAHA-Report-The-White-House.pdf
+<br>
 
 

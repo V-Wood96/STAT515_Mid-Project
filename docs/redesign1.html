@@ -123,9 +123,19 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
   <ul>
-  <li><a href="#original-visualization" id="toc-original-visualization" class="nav-link active" data-scroll-target="#original-visualization">Original Visualization</a></li>
-  <li><a href="#redesign-one" id="toc-redesign-one" class="nav-link" data-scroll-target="#redesign-one">Redesign One</a></li>
-  <li><a href="#redesign-two" id="toc-redesign-two" class="nav-link" data-scroll-target="#redesign-two">Redesign Two</a></li>
+  <li><a href="#original-graph" id="toc-original-graph" class="nav-link active" data-scroll-target="#original-graph">Original Graph</a>
+  <ul class="collapse">
+  <li><a href="#analysis-on-original-graph" id="toc-analysis-on-original-graph" class="nav-link" data-scroll-target="#analysis-on-original-graph">Analysis on Original Graph</a></li>
+  </ul></li>
+  <li><a href="#redesign-one" id="toc-redesign-one" class="nav-link" data-scroll-target="#redesign-one">Redesign One</a>
+  <ul class="collapse">
+  <li><a href="#redesign-one-purpose" id="toc-redesign-one-purpose" class="nav-link" data-scroll-target="#redesign-one-purpose">Redesign One Purpose</a></li>
+  </ul></li>
+  <li><a href="#redesign-two" id="toc-redesign-two" class="nav-link" data-scroll-target="#redesign-two">Redesign Two</a>
+  <ul class="collapse">
+  <li><a href="#redesign-two-purpose" id="toc-redesign-two-purpose" class="nav-link" data-scroll-target="#redesign-two-purpose">Redesign Two Purpose</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -152,8 +162,9 @@ ul.task-list li input[type="checkbox"] {
 </div>
       <div class="about-contents"><main class="content column-page-left" id="quarto-document-content">
 
-<section id="original-visualization" class="level3">
-<h3 data-anchor-id="original-visualization">Original Visualization</h3>
+<p><br></p>
+<section id="original-graph" class="level2">
+<h2 data-anchor-id="original-graph">Original Graph</h2>
 <div id="fig-military-eligibility" class="figure quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-military-eligibility-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -169,9 +180,24 @@ Figure&nbsp;1
 </figcaption>
 </figure>
 </div>
+<section id="analysis-on-original-graph" class="level3">
+<h3 data-anchor-id="analysis-on-original-graph">Analysis on Original Graph</h3>
+<p>The original pie chart below was designed to communicate the distribution of reasons American youth (ages 17 - 24) are ineligible for military service. The purpose was to compare the proportion of eligible versus ineligible youth. The breakdown was further divided by specific reasons for ineligibility disqualification.</p>
+<p>While the intention of the chart is clear the design significantly limits comprehension. The image quality is low, the color choices are inconsistent, and the layout does not effectively communicate proportions or comparisons.</p>
+<section id="weaknesses-of-original-graph" class="level4">
+<h4 data-anchor-id="weaknesses-of-original-graph">Weaknesses of Original Graph</h4>
+<ul>
+<li><p>Image Quality: The original chart was pixelated and difficult to read, like the one above. Context like the not on Drug Abuse DQ is illegible.</p></li>
+<li><p>Formatting: The inconsistent font size and colors create visual clutter.</p></li>
+<li><p>Color Use: Each wedge of the pie chart hac a unique color but with no clear meaning. Adjacent segments use similar and different hues, making them hard to distinguish or understand.</p></li>
+<li><p>Chart Type: A pie chart is not ideal for comparing many categories. Especially with several categories represent 1%.</p></li>
+<li><p>Visual communication: The design fails to guide the eye toward the most important information. Nearly half of youths are disqualified for multiple reasons and that is in gray easily missed. <br><br></p></li>
+</ul>
 </section>
-<section id="redesign-one" class="level3">
-<h3 data-anchor-id="redesign-one">Redesign One</h3>
+</section>
+</section>
+<section id="redesign-one" class="level2">
+<h2 data-anchor-id="redesign-one">Redesign One</h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -181,9 +207,23 @@ Figure&nbsp;1
 </div>
 </div>
 </div>
+<section id="redesign-one-purpose" class="level3">
+<h3 data-anchor-id="redesign-one-purpose">Redesign One Purpose</h3>
+<p>To recreate and improve this visualization I sourced and cleaned the 2020 JAMRS data manually based on the original chart values. Resign emphasized proportional understanding of the data. This redesign aimed to create a direct comparison between eligibility categories while retaining all key original data points.</p>
+<p>This redesign makes it clear that nearly half of youth (44%) are ineligible due to multiple disqualifying factors. It also highlights that overweight and drug use are key single-factor disqualifies. The redesign graph conveys the same information from the original but is visually cleaner and focused.</p>
+<section id="improvements" class="level4">
+<h4 data-anchor-id="improvements">Improvements</h4>
+<ul>
+<li><p>Switched from a pie chart to a horizontal bar chart to improve comparison.</p></li>
+<li><p>Grouped the data logically by placing “Meet All Criteria” at bottom.</p></li>
+<li><p>Used color coding to separate “eligible” and “Ineligible” for immediate visual contrast.</p></li>
+<li><p>Renamed labels for clarity and added clear title, axis labels, and percentages. <br><br></p></li>
+</ul>
 </section>
-<section id="redesign-two" class="level3">
-<h3 data-anchor-id="redesign-two">Redesign Two</h3>
+</section>
+</section>
+<section id="redesign-two" class="level2">
+<h2 data-anchor-id="redesign-two">Redesign Two</h2>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -193,9 +233,31 @@ Figure&nbsp;1
 </div>
 </div>
 </div>
+<section id="redesign-two-purpose" class="level3">
+<h3 data-anchor-id="redesign-two-purpose">Redesign Two Purpose</h3>
+<p>The second redesign builds upon the first but focuses solely on ineligible youth. To allow for proportional scaling I updated by population count given in the original graph of 32,878,937 youth.</p>
+<p>While this graph changed the original focus from comparing the proportion of eligible verses ineligible youth, I felt that this design better communicated the magnitude of disqualification by type. It shows that “Multiple Disqualifiers” vastly outweighs other categories. The simplified focus helps clarify both scale and impact.</p>
+<section id="improvements-1" class="level4">
+<h4 data-anchor-id="improvements-1">Improvements</h4>
+<ul>
+<li><p>Converted percentages to actual population count (in millions).</p></li>
+<li><p>Simplified the chart to focus only on disqualifying factors.</p></li>
+<li><p>Grouped 1% categories into an “Other (≤1%)” segment with a clear footnote.</p></li>
+<li><p>Refined color gradient to represent severity. <br><br></p></li>
+</ul>
 </section>
-<section id="references" class="level3">
-<h3 data-anchor-id="references">References</h3>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 data-anchor-id="conclusion">Conclusion</h2>
+<p>Across the redesigns clarity and interpretability improved dramatically. The first redesign emphasized the eligible/ ineligible split. The second redesign focused on scale and significance withing the ineligible population.</p>
+<p>For future improvements integrating a time-series component (e.g., trends from 2010-2020) could further strengthen public understanding of military eligibility trends.<br>
+<br><br></p>
+</section>
+<section id="references" class="level2">
+<h2 data-anchor-id="references">References</h2>
+<p>[1] The White House, The MAHA Report, Washington, D.C., May 2025. [Online] pg. 9 Available: https://www.whitehouse.gov/wp-content/uploads/2025/05/MAHA-Report-The-White-House.pdf. [Accessed: Oct.&nbsp;8, 2025].</p>
+<p>[3] JAMRS, 2020 Youth Report (as cited in The White House – MAHA Report, May 22, 2025). https://www.whitehouse.gov/wp-content/uploads/2025/05/MAHA-Report-The-White-House.pdf <br></p>
 
 
 </section>

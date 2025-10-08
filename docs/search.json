@@ -18,7 +18,7 @@
     "href": "redesign1.html",
     "title": "Visualization One",
     "section": "",
-    "text": "Original Visualization\n\n\n\n\n\n\nOriginal Visualization\n\n\n\n\nFigure 1\n\n\n\n\n\nRedesign One\n\n\n\n\n\n\n\n\n\n\n\nRedesign Two\n\n\n\n\n\n\n\n\n\n\n\nReferences"
+    "text": "Original Visualization\n\n\n\n\nFigure 1\n\n\n\n\n\nThe original pie chart below was designed to communicate the distribution of reasons American youth (ages 17 - 24) are ineligible for military service. The purpose was to compare the proportion of eligible versus ineligible youth. The breakdown was further divided by specific reasons for ineligibility disqualification.\nWhile the intention of the chart is clear the design significantly limits comprehension. The image quality is low, the color choices are inconsistent, and the layout does not effectively communicate proportions or comparisons.\n\n\n\n\nImage Quality: The original chart was pixelated and difficult to read, like the one above. Context like the not on Drug Abuse DQ is illegible.\nFormatting: The inconsistent font size and colors create visual clutter.\nColor Use: Each wedge of the pie chart hac a unique color but with no clear meaning. Adjacent segments use similar and different hues, making them hard to distinguish or understand.\nChart Type: A pie chart is not ideal for comparing many categories. Especially with several categories represent 1%.\nVisual communication: The design fails to guide the eye toward the most important information. Nearly half of youths are disqualified for multiple reasons and that is in gray easily missed."
   },
   {
     "objectID": "index.html#stat-515-mid-term-project",
@@ -39,7 +39,7 @@
     "href": "redesign2.html",
     "title": "Visualization Two",
     "section": "",
-    "text": "Original Visualization\n\n\n\n\n\n\nOriginal Visualization\n\n\n\nRedesign\n\n\n\n\n\n\n\n\n\n\n\nFigure 1"
+    "text": "Original Visualization\n\n\n\n\nThe original visualization was designed to communicate the percentage of young Americans ages 17 to 24 who are ineligible to join the military across the United States. The intent was to raise awareness of the magnitude of ineligibility and highlight the top preventable causes in a geographic visualization.\nWhile the design is eye-catching the use of a hexagonal tile map and color grouping makes the visualization appealing but analytically weak. The view can quickly grasp that most stats have high ineligibility rate (around 70%) but comparing individual states or seeing subtle differences can be difficult.\nNote regarding text design elements: Nearly half of the visualization functions as a text legend displaying exact percentages, organized from highest to lowest. This layout may be misleading, as viewers naturally read from left to right. Potentially assuming the values increase in that direction. Since most states fall into the lower percentage ranges, this arrangement can create the false impression at a quick glance that a majority of states are in the higher-percentage category.\n\n\n\nColor Binning: States are grouped into broad color ranges (e.g., 62-70%). This hides the exact values and diminishes interpretive accuracy.\nChart Type: The hex map layout distorts geography states and can mislead when trying to interpret reginal clusters.\nLegend: Text-heavy design elements. The image provides little specific data unless the viewer reads small text annotations below.\nScale: Small differences like 70% to 71% appear as sharp visual jumps. \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 1"
   },
   {
     "objectID": "code.html",
@@ -47,5 +47,61 @@
     "title": "Code",
     "section": "",
     "text": "library(ggplot2)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(forcats)\n\nEligibility &lt;- data.frame(\n  Category = c(\"Meets All Criteria\",\"Multiple Disqualifiers\",\"Medical/Physical\",\n               \"Overweight\",\"Mental Health\",\"Drug Abuse\",\n               \"Conduct\",\"Dependents\",\"Aptitude\"),\n  Percent  = c(23, 44, 7, 11, 4, 8, 1, 1, 1)\n)\n\nlev_order &lt;- c(\"Meets All Criteria\",\"Dependents\",\"Conduct\",\"Aptitude\",\n               \"Mental Health\",\"Medical/Physical\",\"Drug Abuse\",\n               \"Overweight\",\"Multiple Disqualifiers\")\n\nEligibility &lt;- Eligibility %&gt;%\n  mutate(\n    Category = factor(Category, levels = lev_order),\n    Group = case_when(\n      Category == \"Meets All Criteria\" ~ \"Eligible\",\n      TRUE ~ \"Ineligible\"))\n\nggplot(Eligibility, aes(x = Category, y = Percent, fill = Group)) +\n  geom_col(width = 0.8) +\n  coord_flip() +\n  geom_text(aes(label = paste0(Percent, \"%\")), hjust = -0.1, size = 4) +\n  annotate(\"segment\", x = 1.5, xend = 1.5, y = 0, yend = 50,\n           linewidth = 0.7, color = \"#4B0000\") +\n  labs(\n    title = \"Military Eligibility Among U.S. Youth (2020)\",\n    x = \"Eligibility Status Reasoning\",\n    y = \"Percentage of Youth (ages 17-24)\",\n    caption = \"Source: JAMRS, 2020 Youth Report [2]\",\n    fill = \"Eligibility Status\"\n  ) +\n  scale_y_continuous(limits = c(0, 50), expand = expansion(mult = c(0, 0))) +\n  scale_fill_manual(\n    values = c(\n      \"Ineligible\" = \"#9a031e\",\n      \"Eligible\" = \"#2CA58D\"\n    ),\n    breaks = c(\"Ineligible\", \"Eligible\") \n  ) +\n  theme_minimal(base_size = 8) +\n  theme(\n    plot.title = element_text(size = 18, face = \"bold\", color = \"#4B0000\", hjust = 0.3),\n    axis.title.x = element_text(size = 14, color = \"#4B0000\", margin = margin(t = 10)),\n    axis.title.y = element_text(size = 14, color = \"#4B0000\", margin = margin(r = 10)),\n    axis.text.x = element_text(size = 10, color = \"#4B0000\"),\n    axis.text.y = element_text(size = 10, color = \"#4B0000\"),\n    panel.grid.major.y = element_blank(),\n    plot.caption = element_text(size = 10, hjust = 0, color = \"#4B0000\", margin = margin(t = 8, l = 2)),\n    plot.margin = margin(10, 20, 10, 20),\n    legend.position = \"right\",\n    legend.direction = \"vertical\",\n    legend.title = element_text(size = 10, face = \"bold\", color = \"#4B0000\"),\n    legend.text = element_text(size = 10, color = \"#4B0000\")\n  )"
+  },
+  {
+    "objectID": "redesign1.html#original-graph",
+    "href": "redesign1.html#original-graph",
+    "title": "Visualization One",
+    "section": "Original Graph",
+    "text": "Original Graph\n\n\n\n\n\n\nOriginal Visualization\n\n\n\n\nFigure 1\n\n\n\n\nAnalysis on Original Graph\nThe original pie chart below was designed to communicate the distribution of reasons American youth (ages 17 - 24) are ineligible for military service. The purpose was to compare the proportion of eligible versus ineligible youth. The breakdown was further divided by specific reasons for ineligibility disqualification.\nWhile the intention of the chart is clear the design significantly limits comprehension. The image quality is low, the color choices are inconsistent, and the layout does not effectively communicate proportions or comparisons.\n\nWeaknesses of Original Graph\n\nImage Quality: The original chart was pixelated and difficult to read, like the one above. Context like the not on Drug Abuse DQ is illegible.\nFormatting: The inconsistent font size and colors create visual clutter.\nColor Use: Each wedge of the pie chart hac a unique color but with no clear meaning. Adjacent segments use similar and different hues, making them hard to distinguish or understand.\nChart Type: A pie chart is not ideal for comparing many categories. Especially with several categories represent 1%.\nVisual communication: The design fails to guide the eye toward the most important information. Nearly half of youths are disqualified for multiple reasons and that is in gray easily missed."
+  },
+  {
+    "objectID": "redesign1.html#redesign-one",
+    "href": "redesign1.html#redesign-one",
+    "title": "Visualization One",
+    "section": "Redesign One",
+    "text": "Redesign One\n\n\n\n\n\n\n\n\n\n\nRedesign One Purpose\nTo recreate and improve this visualization I sourced and cleaned the 2020 JAMRS data manually based on the original chart values. Resign emphasized proportional understanding of the data. This redesign aimed to create a direct comparison between eligibility categories while retaining all key original data points.\nThis redesign makes it clear that nearly half of youth (44%) are ineligible due to multiple disqualifying factors. It also highlights that overweight and drug use are key single-factor disqualifies. The redesign graph conveys the same information from the original but is visually cleaner and focused.\n\nImprovements\n\nSwitched from a pie chart to a horizontal bar chart to improve comparison.\nGrouped the data logically by placing “Meet All Criteria” at bottom.\nUsed color coding to separate “eligible” and “Ineligible” for immediate visual contrast.\nRenamed labels for clarity and added clear title, axis labels, and percentages."
+  },
+  {
+    "objectID": "redesign1.html#redesign-two",
+    "href": "redesign1.html#redesign-two",
+    "title": "Visualization One",
+    "section": "Redesign Two",
+    "text": "Redesign Two\n\n\n\n\n\n\n\n\n\n\nRedesign Two Purpose\nThe second redesign builds upon the first but focuses solely on ineligible youth. To allow for proportional scaling I updated by population count given in the original graph of 32,878,937 youth.\nWhile this graph changed the original focus from comparing the proportion of eligible verses ineligible youth, I felt that this design better communicated the magnitude of disqualification by type. It shows that “Multiple Disqualifiers” vastly outweighs other categories. The simplified focus helps clarify both scale and impact.\n\nImprovements\n\nConverted percentages to actual population count (in millions).\nSimplified the chart to focus only on disqualifying factors.\nGrouped 1% categories into an “Other (≤1%)” segment with a clear footnote.\nRefined color gradient to represent severity."
+  },
+  {
+    "objectID": "redesign1.html#references",
+    "href": "redesign1.html#references",
+    "title": "Visualization One",
+    "section": "References",
+    "text": "References\n[1] The White House, The MAHA Report, Washington, D.C., May 2025. [Online] pg. 9 Available: https://www.whitehouse.gov/wp-content/uploads/2025/05/MAHA-Report-The-White-House.pdf. [Accessed: Oct. 8, 2025].\n[3] JAMRS, 2020 Youth Report (as cited in The White House – MAHA Report, May 22, 2025). https://www.whitehouse.gov/wp-content/uploads/2025/05/MAHA-Report-The-White-House.pdf"
+  },
+  {
+    "objectID": "redesign1.html#conclusion",
+    "href": "redesign1.html#conclusion",
+    "title": "Visualization One",
+    "section": "Conclusion",
+    "text": "Conclusion\nAcross the redesigns clarity and interpretability improved dramatically. The first redesign emphasized the eligible/ ineligible split. The second redesign focused on scale and significance withing the ineligible population.\nFor future improvements integrating a time-series component (e.g., trends from 2010-2020) could further strengthen public understanding of military eligibility trends."
+  },
+  {
+    "objectID": "redesign2.html#original-visualization",
+    "href": "redesign2.html#original-visualization",
+    "title": "Visualization Two",
+    "section": "Original Visualization",
+    "text": "Original Visualization\n\n\n\n\n\n\nOriginal Visualization\n\n\n\n\nFigure 1\n\n\n\n\nAnalysis on Original Graph\nThe original visualization was designed to communicate the percentage of young Americans ages 17 to 24 who are ineligible to join the military across the United States. The intent was to raise awareness of the magnitude of ineligibility and highlight the top preventable causes in a geographic visualization.\nWhile the design is eye-catching the use of a hexagonal tile map and color grouping makes the visualization appealing but analytically weak. The view can quickly grasp that most stats have high ineligibility rate (around 70%) but comparing individual states or seeing subtle differences can be difficult.\nNote regarding text design elements: Nearly half of the visualization functions as a text legend displaying exact percentages, organized from highest to lowest. This layout may be misleading, as viewers naturally read from left to right. Potentially assuming the values increase in that direction. Since most states fall into the lower percentage ranges, this arrangement can create the false impression at a quick glance that a majority of states are in the higher-percentage category.\n\nWeaknesses of Original Graph\n\nColor Binning: States are grouped into broad color ranges (e.g., 62-70%). This hides the exact values and diminishes interpretive accuracy.\nChart Type: The hex map layout distorts geography states and can mislead when trying to interpret reginal clusters.\nLegend: Text-heavy design elements. The image provides little specific data unless the viewer reads small text annotations below.\nScale: Small differences like 70% to 71% appear as sharp visual jumps. \n\n\n\n\nRedesign\n\n\n\n\n\n\n\n\nRedesign Purpose\nThe redesign aims to provide an accurate and interactive visualization of the percentage of youth ineligibility for military service by state.\nThis redesign makes reginal patterns immediately clear. The Sothern states like MS, LA, AL, and GA shows the highest ineligibility rates. While the Midwestern and Northeastern states show slightly lower rates. This map provides precise data points rather than broad categories. This encourages accurate interpretation and reginal analysis.\n\nImprovements\n\nAdopted a true geographic projection.\nApplied a continuous color scale for better distinction.\nAdded hover text for each state to deliver specific values without clutter.\nSimplified layout to center focus on the data itself.\nMade the chart interactive. Allowing users to explore details."
+  },
+  {
+    "objectID": "redesign2.html#conclusion",
+    "href": "redesign2.html#conclusion",
+    "title": "Visualization Two",
+    "section": "Conclusion",
+    "text": "Conclusion\nThis redesign transforms a static infographic map into exploration and analysis. It strengthens accuracy and user engagement while maintaining the message of the original report.\nFuture enhancements Could include overlays for the major contributing factors like obesity and drug use. Allowing policymakers to visualize where the issue is most severe."
+  },
+  {
+    "objectID": "redesign2.html#references",
+    "href": "redesign2.html#references",
+    "title": "Visualization Two",
+    "section": "References",
+    "text": "References\n[2] Council for a Strong America, “Map: Many Young Americans Are Ineligible to Serve in the Military,” StrongNation.org, 2024. [Online]. Available: https://www.strongnation.org/articles/414-map-many-young-americans-are-ineligible-to-serve-in-the-military. [Accessed: Oct. 8, 2025]."
   }
 ]
