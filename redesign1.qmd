@@ -10,7 +10,7 @@ about:
       href: https://www.whitehouse.gov/wp-content/uploads/2025/05/MAHA-Report-The-White-House.pdf
     - icon: youtube
       text: YouTube
-      href: https://www.youtube.com/watch?v=hceM0-RuPwo&list=PLkrJrLs7xfbXcEKhTCKRSr2VXH4yiBeXo&index=8
+      href: https://www.youtube.com/watch?v=elQjmQpo4F4
 
 format:
   html:

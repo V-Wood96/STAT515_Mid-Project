@@ -4,6 +4,8 @@ editor: visual
 ---
 
 
+### Redesign 1 Code
+
 ```{r}
 #| fig-width: 9
 #| fig-height: 5.5
@@ -43,7 +45,7 @@ ggplot(Eligibility, aes(x = Category, y = Percent, fill = Group)) +
     title = "Military Eligibility Among U.S. Youth (2020)",
     x = "Eligibility Status Reasoning",
     y = "Percentage of Youth (ages 17-24)",
-    caption = "Source: JAMRS, 2020 Youth Report [2]",
+    caption = "Source: JAMRS, 2020 Youth Report",
     fill = "Eligibility Status"
   ) +
   scale_y_continuous(limits = c(0, 50), expand = expansion(mult = c(0, 0))) +
@@ -71,3 +73,138 @@ ggplot(Eligibility, aes(x = Category, y = Percent, fill = Group)) +
   )
 
 ```
+
+
+### Redesign 2 Code
+
+```{r}
+#| fig-width: 9
+#| fig-height: 5.5
+#| fig-dpi: 300
+#| out-width: 100%
+#| fig-align: center
+
+library(scales)
+
+Eligibility_2 <- data.frame(
+  Category = c("Meets All Criteria","Multiple Disqualifiers","Medical/Physical",
+               "Overweight","Mental Health","Drug Abuse","*Other (≤1%)"),
+  Percent  = c(23, 44, 7, 11, 4, 8, 3)
+)
+
+total_population <- 32878937 
+
+Eligibility_2 <- Eligibility_2 %>%
+  mutate(
+    Count = round(Percent/100 * total_population),
+    Label = paste0(number(Count, scale = 1e-6, accuracy = 0.1), "M")  
+  )
+
+elig_filt <- Eligibility_2 %>% filter(Category != "Meets All Criteria")
+
+elig_filt <- elig_filt %>%
+  mutate(Category = fct_reorder(Category, Count)) 
+
+ggplot(elig_filt, aes(x = Category, y = Count, fill = Count)) +
+  geom_col(width = 0.7, color = "black") +
+  coord_flip(clip = "off") +
+  scale_y_continuous(
+    labels = label_number(scale = 1e-6, suffix = "M"),
+    expand = expansion(mult = c(0, 0.2))
+  ) +
+  scale_fill_gradient(low = "#f2e9e4", high = "#9a031e", guide = "none") +
+  geom_text(
+    aes(label = Label),
+    hjust = -0.15,
+    size = 3.5,
+    color = "#4B0000",
+    fontface = "italic"
+  ) +
+  labs(
+    title = "Reasons for Military Ineligibility Among U.S. Youth",
+    subtitle = "Based on 32,878,937 total population (excludes those who meet all criteria)",
+    x = "Reasoning for Ineligibility",
+    y = "Youth ages 17–24 (Millions)",
+    caption = "*Other (≤1%) includes: Conduct, Dependents, Aptitude"
+  ) +
+  theme_minimal(base_size = 9) +
+  theme(
+    plot.title = element_text(size = 18, face = "bold", color = "#4B0000", hjust = 0.5),
+    plot.subtitle = element_text(size = 11, color = "#4B0000", hjust = 0.5, margin = margin(b = 8)),
+    axis.title.x = element_text(size = 13, color = "#4B0000", margin = margin(t = 8)),
+    axis.title.y = element_text(size = 13, color = "#4B0000", margin = margin(r = 10)),
+    axis.text.x  = element_text(size = 10, color = "#4B0000"),
+    axis.text.y  = element_text(size = 10, color = "#4B0000"),
+    panel.grid.major.y = element_blank(),
+    plot.caption = element_text(size = 10, hjust = 0, color = "#4B0000", margin = margin(t = 8, l = 2)),
+    plot.margin = margin(10, 35, 10, 20),
+    legend.position = "none"
+  )
+```
+
+
+### Redesign 3 Code
+
+```{r}
+#| fig-width: 10
+#| fig-height: 6
+#| fig-dpi: 300
+#| out-width: 100%
+#| label: ineligible-map
+#| fig-cap: ""
+
+library(ggplot2)
+library(usmap)
+library(plotly)
+library(dplyr)
+library(stringr)   
+library(tibble)
+
+usa_tbl <- ggplot2::map_data("state") %>% as_tibble()
+
+ineligible_df <- tibble(
+  state = c("District of Columbia","Mississippi","Louisiana","Alabama","Arkansas",
+            "New Mexico","Georgia","New Hampshire","Oklahoma","South Carolina",
+            "Tennessee","Texas","Arizona","Delaware","Florida","Kentucky",
+            "North Carolina","Rhode Island","West Virginia","Alaska","California",
+            "Idaho","Indiana","Michigan","Missouri","Montana","Nebraska","Nevada",
+            "New York","North Dakota","Ohio","Oregon","Pennsylvania","South Dakota",
+            "Utah","Wisconsin","Colorado","Illinois","Iowa","Kansas","Maryland",
+            "Vermont","Virginia","Washington","Wyoming","Connecticut","Massachusetts",
+            "Minnesota","New Jersey","Maine","Hawaii"),
+  Percent_Ineligible = c(
+    78,76,75,74,74,74,73,73,73,73,73,73,72,72,72,72,72,72,72,71,71,71,71,71,71,
+    71,71,71,71,71,71,71,71,71,71,71,70,70,70,70,70,70,70,70,70,69,69,69,69,68,62)
+) %>%
+  mutate(state = tolower(state)) %>%
+  filter(state != "district of columbia")
+
+ineligible_df_map <- usa_tbl %>%
+  left_join(ineligible_df, by = c("region" = "state"))
+
+p <- ggplot(ineligible_df_map, aes(long, lat, group = group)) +
+  geom_polygon(
+    aes(
+      fill = Percent_Ineligible,
+      text = paste0(str_to_title(region), "<br>", Percent_Ineligible, "% ineligible")
+    ),
+    color = "white", linewidth = 0.25
+  ) +
+  coord_map("albers", lat0 = 39, lat1 = 45) + 
+  scale_fill_gradient2(
+    low = "#FFF3B0", mid = "#E67E22", high = "#4B0000",
+    midpoint = 70, limits = c(62, 78),
+    name = "Percent Ineligible",
+    labels = function(x) paste0(x, "%")) +
+  labs(
+    title = "Percent of American Youth (age 17–24) Ineligible for Military Service") +
+  theme_void(base_size = 6) +
+  theme(
+  plot.title = element_text(size = 10, face = "bold", color = "#4B0000"))
+
+ggplotly(p, tooltip = "text", height = 400)
+
+```
+
+
+

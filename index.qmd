@@ -14,7 +14,7 @@ about:
       href: https://www.strongnation.org/articles/414-map-many-young-americans-are-ineligible-to-serve-in-the-military 
     - icon: youtube
       text: YouTube
-      href: https://www.youtube.com/watch?v=hceM0-RuPwo&list=PLkrJrLs7xfbXcEKhTCKRSr2VXH4yiBeXo&index=8
+      href: https://www.youtube.com/watch?v=elQjmQpo4F4
 
 ---
 
@@ -30,10 +30,21 @@ Because the original dataset could not be retrieved, I manually reconstructed th
 
 ### Presentation
 
+<iframe width="560" height="315"
+  src="https://www.youtube.com/embed/elQjmQpo4F4"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen>
+</iframe>
+
 ### Sources Information
 
-[1] JAMRS, 2020 Youth Report (as cited in The White House – MAHA Report, May 22, 2025).
+[1] The White House, The MAHA Report, Washington, D.C., May 2025. [Online] pg. 9 Available: https://www.whitehouse.gov/wp-content/uploads/2025/05/MAHA-Report-The-White-House.pdf. [Accessed: Oct. 8, 2025].
+
+[2] Council for a Strong America, “Map: Many Young Americans Are Ineligible to Serve in the Military,” StrongNation.org, 2024. [Online]. Available: https://www.strongnation.org/articles/414-map-many-young-americans-are-ineligible-to-serve-in-the-military. [Accessed: Oct. 8, 2025].
+
+[3] JAMRS, 2020 Youth Report (as cited in The White House – MAHA Report, May 22, 2025).
 https://www.whitehouse.gov/wp-content/uploads/2025/05/MAHA-Report-The-White-House.pdf
 <br>
 
-[2]	Department of Defense (2017), as cited by Mission: Readiness – Council for a Strong America. Retrieved from https://www.strongnation.org/articles/414-map-many-young-americans-are-ineligible-to-serve-in-the-military 
